@@ -7,7 +7,7 @@ export class App extends React.Component {
         return (
             <div>
                 <AppBar title='KontoFahren'/>
-                <VehicleListWrapped/>
+                {this.props.children}
             </div>
         )
     }

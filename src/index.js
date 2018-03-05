@@ -9,8 +9,11 @@ import logger from 'redux-logger';
 import {MuiThemeProvider} from 'material-ui'
 
 import reducers from './reducers';
+import routes from './Routes'
 import thunk from "redux-thunk";
 import persistState from 'redux-localstorage'
+import hashHistory from "react-router/es/hashHistory";
+import {Router} from "react-router";
 
 const persist = compose(persistState());
 
@@ -25,7 +28,9 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-            <App/>
+            <Router
+            history={hashHistory}
+            routes={routes}/>
         </MuiThemeProvider>
     </Provider>, document.getElementById('root'));
 registerServiceWorker();
