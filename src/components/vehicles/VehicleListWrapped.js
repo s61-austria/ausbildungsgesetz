@@ -12,6 +12,7 @@ export class VehicleListWrapped extends React.Component {
         return (
             <div>
                 {this.props.isFetching ? <p>LOADING</p>: <p></p>}
+                {this.props.children}
                 <VehicleList vehicles={this.props.vehicles}/>
             </div>
         )
