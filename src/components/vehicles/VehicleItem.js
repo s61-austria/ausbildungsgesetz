@@ -1,20 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Card, CardHeader, CardText} from 'material-ui'
 
 export class VehicleItem extends React.Component {
     render() {
         return (
-            <div>
-                <h1>{this.props.vehicle.name}</h1>
-                <p>{this.props.vehicle.id}</p>
-            </div>
+            <Card>
+                <CardHeader
+                    title={this.props.vehicle.licensePlate}
+                    actAsExpander={true}
+                    showExpandableButton={true}
+                />
+                <CardText expandable={true}>
+                    <p>Id: {this.props.vehicle.id}</p>
+                    <p>Hardware serial: {this.props.vehicle.hardwareSerialNumber}</p>
+                    <p>Vehicle type: {this.props.vehicle.vehicleType}</p>
+                    <p>Owner: {this.props.vehicle.owner.name}</p>
+                    <p>Current country: {this.props.vehicle.currentLocation.country.name}</p>
+                </CardText>
+            </Card>
         )
     }
 }
 
 VehicleItem.propTypes = {
     vehicle: PropTypes.shape({
-        name: PropTypes.string,
-        id: PropTypes.number
+        id: PropTypes.number,
+        hardwareSerialNumber: PropTypes.string,
+        licensePlate: PropTypes.string,
+        vehicleType: PropTypes.string,
+        activities: PropTypes.array,
+        owner: PropTypes.shape({}),
+        currentLocation: PropTypes.shape({})
     }).isRequired
 };

@@ -8,10 +8,32 @@ export function fetchVehicles() {
         setTimeout(() => dispatch({
             type: "VEHICLES_FETCHED", data: {
                 vehicles: [
-                    {id: 1, name: "henk"},
-                    {id: 2, name: "sjors"}
+                    {id: 1,
+                        hardwareSerialNumber: "12131",
+                        licensePlate : "NT-PD-91",
+                        vehicleType: 'LKW',
+                        activities: [],
+                        owner: {name: "jan"},
+                        currentLocation: {
+                            country: {
+                                name: "Nederland"
+                            }
+                        }
+                    },
+                    {id: 1,
+                        hardwareSerialNumber: "12131",
+                        licensePlate : "NT-PD-91",
+                        vehicleType: 'LKW',
+                        activities: [],
+                        owner: {name: "jan"},
+                        currentLocation: {
+                            country: {
+                                name: "Nederland"
+                            }
+                        }
+                    }
                 ]
             }
-        }), 3000)
+        }), 300)
     }
 }
