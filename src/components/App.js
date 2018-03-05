@@ -1,12 +1,11 @@
 import React from 'react'
-
-import {VehicleList} from "./vehicles/VehicleList";
+import VehicleListWrapped from "./vehicles/VehicleListWrapped";
 
 export class App extends React.Component {
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                <VehicleList/>
+                <VehicleListWrapped/>
             </div>
         )
     }
