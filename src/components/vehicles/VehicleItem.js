@@ -12,7 +12,7 @@ export class VehicleItem extends React.Component {
                     showExpandableButton={true}
                 />
                 <CardText expandable={true} >
-                    <p key={this.props.vehicle.id}>Id: {this.props.vehicle.id}</p>
+                    <p>Id: {this.props.vehicle.id}</p>
                     <p>Hardware serial: {this.props.vehicle.hardwareSerialNumber}</p>
                     <p>Vehicle type: {this.props.vehicle.vehicleType}</p>
                     {!this.props.vehicle.hasOwnProperty("owner") ? <p></p> :
