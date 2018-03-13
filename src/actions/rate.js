@@ -36,7 +36,7 @@ export function updateRate(rate) {
         dispatch({type: UPDATING_PENDING});
 
         request
-            .post('localhost:8080/KontoFahren/api' + '/rate/updaterate')
+            .put('localhost:8080/KontoFahren/api' + '/rate/updaterate')
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {
