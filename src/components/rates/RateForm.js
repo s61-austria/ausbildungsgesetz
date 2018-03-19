@@ -9,23 +9,30 @@ export const RateForm = (props) => (
             <Field
                 name="id"
                 component={TextField}
-                type="text" />
+                type="text"
+                floatingLabelText="ID"/>
             <Field
                 name="vehicleType"
                 component={TextField}
-                type="text" />
+                type="text"
+                hintText="PKW"
+                floatingLabelText="Vehicle Type"/>
             <Field
                 name="kmPrice"
                 component={TextField}
-                type="text" />
+                type="text"
+                hintText="0.22"
+                floatingLabelText="Kilometer price"/>
             <Field
                 name="vignetteType"
                 component={TextField}
-                type="text" />
+                type="text"
+                hintText="ONE_YEAR"
+                floatingLabelText="Vignette Type"/>
             <RaisedButton
                 primary
                 type="submit"
-                label="Submit" />
+                label="Submit"/>
         </form>
     </div>
 );
