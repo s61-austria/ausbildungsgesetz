@@ -1,8 +1,14 @@
 {
   "name": "ausbildungsgesetz",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "homepage": "https://s61-austria.github.io/ausbildungsgesetz/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^1.1.0",
     "material-ui": "^0.20.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
