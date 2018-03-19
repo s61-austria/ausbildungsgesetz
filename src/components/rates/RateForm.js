@@ -7,6 +7,10 @@ export const RateForm = (props) => (
     <div>
         <form onSubmit={props.handleSubmit}>
             <Field
+                name="id"
+                component={TextField}
+                type="text" />
+            <Field
                 name="vehicleType"
                 component={TextField}
                 type="text" />
