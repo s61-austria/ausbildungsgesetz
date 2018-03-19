@@ -15,9 +15,10 @@ export class VehicleItem extends React.Component {
                     <p>Id: {this.props.vehicle.id}</p>
                     <p>Hardware serial: {this.props.vehicle.hardwareSerialNumber}</p>
                     <p>Vehicle type: {this.props.vehicle.vehicleType}</p>
-                    {!this.props.vehicle.hasOwnProperty("owner") ? <p></p> :
+                    {this.props.vehicle.owner == null ? <p></p> :
                         <p>Owner: {this.props.vehicle.owner.name}</p> }
-                    {!this.props.vehicle.currentLocation.hasOwnProperty('country') ? <p></p> :
+
+                    {this.props.vehicle.currentLocation == null ? <p></p> :
                         <p>Current country: {this.props.vehicle.currentLocation.country.name}</p> }
 
                 </CardText>

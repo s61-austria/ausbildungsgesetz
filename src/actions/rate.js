@@ -13,7 +13,7 @@ export function addRate(rate) {
         dispatch({type: ADDING_PENDING});
 
         request
-            .post('localhost:8080/KontoFahren/api' + '/rate/addrate')
+            .post('http://localhost:8080/government/api' + '/rates')
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {
@@ -27,7 +27,7 @@ export function addRate(rate) {
                     type: RATE_ADDED_ERROR,
                     error
                 })
-            })
+            });
     }
 }
 
@@ -36,7 +36,7 @@ export function updateRate(rate) {
         dispatch({type: UPDATING_PENDING});
 
         request
-            .put('localhost:8080/KontoFahren/api' + '/rate/updaterate')
+            .put('localhost:8080/government/api' + '/rates')
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {
@@ -50,6 +50,6 @@ export function updateRate(rate) {
                     type: RATE_UPDATED_ERROR,
                     error
                 })
-            })
+            });
     }
 }

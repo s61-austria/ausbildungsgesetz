@@ -11,6 +11,16 @@ export const RateForm = (props) => (
                 component={TextField}
                 type="text"
                 />
+            <Field
+                name="kmPrice"
+                component={TextField}
+                type="text"
+            />
+            <Field
+                name="vignetteType"
+                component={TextField}
+                type="text"
+            />
             <RaisedButton
                 primary
                 type="submit"
