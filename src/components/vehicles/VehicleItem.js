@@ -17,10 +17,8 @@ export class VehicleItem extends React.Component {
                     <p>Vehicle type: {this.props.vehicle.vehicleType}</p>
                     {this.props.vehicle.owner == null ? <p></p> :
                         <p>Owner: {this.props.vehicle.owner.name}</p> }
-
                     {this.props.vehicle.currentLocation == null ? <p></p> :
                         <p>Current country: {this.props.vehicle.currentLocation.country.name}</p> }
-
                 </CardText>
             </Card>
         )

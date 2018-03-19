@@ -36,7 +36,7 @@ export function updateRate(rate) {
         dispatch({type: UPDATING_PENDING});
 
         request
-            .put('localhost:8080/government/api' + '/rates')
+            .put('http://localhost:8080/government/api' + '/rates')
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {

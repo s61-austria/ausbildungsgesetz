@@ -1,4 +1,3 @@
-import {vehicle} from "../reducers/vehicle";
 import request from 'superagent-es6-promise'
 
 export const VEHICLES_FETCHING = "VEHICLES_FETCHING";

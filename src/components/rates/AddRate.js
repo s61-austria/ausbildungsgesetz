@@ -9,7 +9,7 @@ class AddRate extends React.Component {
     constructor(props) {
         super(props);
 
-        this.submit = rate => this.props.addRate(rate)
+        this.submit = rate => this.props.addRate(rate);
     }
 
     render() {

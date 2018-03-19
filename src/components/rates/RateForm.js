@@ -9,18 +9,15 @@ export const RateForm = (props) => (
             <Field
                 name="vehicleType"
                 component={TextField}
-                type="text"
-                />
+                type="text" />
             <Field
                 name="kmPrice"
                 component={TextField}
-                type="text"
-            />
+                type="text" />
             <Field
                 name="vignetteType"
                 component={TextField}
-                type="text"
-            />
+                type="text" />
             <RaisedButton
                 primary
                 type="submit"
