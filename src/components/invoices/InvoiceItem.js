@@ -7,11 +7,11 @@ export class InvoiceItem extends React.Component {
         return(
             <Card>
                 <CardHeader
-                    title={`${this.props.invoice.expires} | ${this.props.invoice.state}`}
+                    title={`${this.props.invoice.uuid} | Expires on: ${this.props.invoice.expires} | ${this.props.invoice.state}`}
                     actAsExpander
                     showExpandableButton />
                 <CardText expandable >
-                    <p>Id: {this.props.invoice.id}</p>
+                    <p>ID: {this.props.invoice.uuid}</p>
                     <p>State: {this.props.invoice.state}</p>
                     <p>Generated on: {this.props.invoice.createdOn}</p>
                     <p>Generated: {this.props.invoice.generationType}</p>
@@ -29,7 +29,7 @@ export class InvoiceItem extends React.Component {
 
 InvoiceItem.propTypes = {
     invoice: PropTypes.shape({
-        id: PropTypes.string,
+        uuid: PropTypes.string,
         state: PropTypes.string,
         generationType: PropTypes.string,
         createdOn: PropTypes.string,
