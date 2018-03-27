@@ -3,7 +3,7 @@ import request from 'superagent-es6-promise'
 export const INVOICES_FETCHING = "INVOICES_FETCHING";
 export const INVOICES_FETCHED = "INVOICES_FETCHED";
 
-export const INVOICE_GENERATING = "";
+export const INVOICE_GENERATING = "INVOICE_GENERATING";
 export const INVOICE_REGENERATED = "INVOICE_REGENERATED";
 
 export function fetchInvoices() {
