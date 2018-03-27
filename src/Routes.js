@@ -8,7 +8,6 @@ import InvoiceListWrapped from "./components/invoices/InvoiceListWrapped";
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={VehicleListWrapped}/>
         <Route path="/invoices" component={InvoiceListWrapped}/>
         <Route path="/vehicles" component={VehicleListWrapped}/>
         <Route path="/rates/add" component={AddRate} />
