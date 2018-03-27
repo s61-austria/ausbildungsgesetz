@@ -7,7 +7,7 @@ export function fetchInvoices() {
     return (dispatch) => {
         dispatch({type: INVOICES_FETCHING});
 
-        request.get("http://localhost:8080/government/api" + "/invoices")
+        request.get("http://localhost:8080/government/api/invoices")
             .then(result =>
                 dispatch({
                     type: INVOICES_FETCHED, data: {invoices: result.body }

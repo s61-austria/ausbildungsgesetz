@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {InvoiceItem} from "./InvoiceItem";
-import {invoice} from "../../reducers/invoice";
 
 export class InvoiceList extends React.Component {
     constructor(props) {
