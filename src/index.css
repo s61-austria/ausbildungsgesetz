@@ -3,3 +3,18 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.cardListItem {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.flexWrapCard {
+  display: flex;
+  flexWrap: wrap;
+}
+
+.datePicker {
+  margin-right: 10px;
+}

@@ -5,7 +5,7 @@ import {Card, CardHeader, CardText} from 'material-ui'
 export class InvoiceItem extends React.Component {
     render() {
         return(
-            <Card>
+            <Card className="cardListItem">
                 <CardHeader
                     title={`${this.props.invoice.uuid} | Expires on: ${this.props.invoice.expires} | ${this.props.invoice.state}`}
                     actAsExpander
