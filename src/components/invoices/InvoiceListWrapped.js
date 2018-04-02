@@ -2,27 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {InvoiceList} from "./InvoiceList";
 import {connect} from "react-redux";
-import {fetchInvoices, regenerateInvoice} from "../../actions/invoice";
-import { withStyles } from 'material-ui/styles';
-import {Card, CardHeader, CardText, DatePicker, Divider, MenuItem, Paper, RaisedButton, SelectField} from "material-ui";
+import {fetchInvoices, regenerateInvoice, changeInvoiceState} from "../../actions/invoice";
+import {Card, CardHeader, CardText, DatePicker, Divider, MenuItem, RaisedButton, SelectField} from "material-ui";
 import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import CloseExpandIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import areIntlLocalesSupported from 'intl-locales-supported';
 import '../../index.css';
-
-let DateTimeFormat;
-
-/**
- * Use the native Intl.DateTimeFormat if available, or a polyfill if not.
- */
-if (areIntlLocalesSupported(['nl', 'nl-NL'])) {
-    DateTimeFormat = global.Intl.DateTimeFormat;
-} else {
-    const IntlPolyfill = require('intl');
-    DateTimeFormat = IntlPolyfill.DateTimeFormat;
-    require('intl/locale-data/jsonp/nl');
-    require('intl/locale-data/jsonp/nl-NL');
-}
 
 let states = ['ALL', 'OPEN', 'PAID', 'CLOSED', 'LATE', 'ENDING'];
 let generatedBy = ['ALL', 'AUTO', 'MANUAL']
@@ -64,6 +48,7 @@ export class InvoiceListWrapped extends React.Component {
                     <Divider />
                     <CardText expandable>
                         <table>
+                            <tbody>
                             <tr>
                                 <td><h4 className="filterHeader">CREATION DATE</h4></td>
                             </tr>
@@ -74,7 +59,6 @@ export class InvoiceListWrapped extends React.Component {
                                         floatingLabelText="Start"
                                         okLabel="OK"
                                         cancelLabel="Annuleren"
-                                        locale="nl"
                                         onChange={this.handleStartDateChange}
                                         value={this.state.startDate}
                                     />
@@ -84,7 +68,6 @@ export class InvoiceListWrapped extends React.Component {
                                         floatingLabelText="End"
                                         okLabel="OK"
                                         cancelLabel="Annuleren"
-                                        locale="nl"
                                         onChange={this.handleEndDateChange}
                                         value={this.state.endDate}
                                     />
@@ -125,6 +108,7 @@ export class InvoiceListWrapped extends React.Component {
                                     onClick={() => this.props.fetchInvoices(this.state.startDate.valueOf(), this.state.endDate.valueOf())}/>
                                 </td>
                             </tr>
+                            </tbody>
                         </table>
                     </CardText>
                 </Card>
@@ -134,6 +118,7 @@ export class InvoiceListWrapped extends React.Component {
                 <InvoiceList
                     invoices={this.props.invoices}
                     regenerateInvoice={this.props.regenerateInvoice}
+                    changeInvoiceState={this.props.changeInvoiceState}
                     invoiceState={states[this.state.stateValue - 1]}
                     generatedBy={generatedBy[this.state.generatedBy - 1]}
                 />
@@ -148,6 +133,7 @@ InvoiceListWrapped.propTypes = {
     isFailed: PropTypes.bool,
     fetchInvoices: PropTypes.func,
     regenerateInvoice: PropTypes.func,
+    changeInvoiceState: PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -160,5 +146,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
     fetchInvoices: fetchInvoices,
-    regenerateInvoice: regenerateInvoice
+    regenerateInvoice: regenerateInvoice,
+    changeInvoiceState: changeInvoiceState,
 })(InvoiceListWrapped)
