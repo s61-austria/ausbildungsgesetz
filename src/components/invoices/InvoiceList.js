@@ -9,8 +9,6 @@ export class InvoiceList extends React.Component {
     }
 
     render() {
-        console.log(this.props.invoiceState);
-
         return (
             <div>
                 {this.props.invoices.filter(invoice => {

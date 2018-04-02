@@ -11,9 +11,6 @@ export function fetchInvoices(startDate, endDate) {
     return (dispatch) => {
         dispatch({type: INVOICES_FETCHING});
 
-        console.log('Startdate: ' + startDate);
-        console.log('EndDate: ' + endDate);
-
         request.get(`http://localhost:8080/government/api/invoices?startDate=${startDate}&endDate=${endDate}`)
             .then(result =>
                 dispatch({
