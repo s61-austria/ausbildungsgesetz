@@ -4,17 +4,28 @@ body {
   font-family: sans-serif;
 }
 
-.cardListItem {
+.listBody {
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
 }
 
-.flexWrapCard {
-  display: flex;
-  flexWrap: wrap;
+.listBody p {
+  margin-left: 5px;
 }
 
 .datePicker {
   margin-right: 10px;
+}
+
+.primaryButton {
+  margin-top: 20px;
+}
+
+.filterHeader {
+  margin-bottom: -5px;
+}
+
+.cardListItem {
+  margin-bottom: 5px;
 }

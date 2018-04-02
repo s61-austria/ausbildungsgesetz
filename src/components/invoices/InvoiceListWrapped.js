@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {InvoiceList} from "./InvoiceList";
 import {connect} from "react-redux";
-import {fetchInvoices} from "../../actions/invoice";
+import {fetchInvoices, regenerateInvoice} from "../../actions/invoice";
 import { withStyles } from 'material-ui/styles';
-import {Card, CardHeader, CardText, DatePicker, Divider, Paper} from "material-ui";
+import {Card, CardHeader, CardText, DatePicker, Divider, MenuItem, Paper, RaisedButton, SelectField} from "material-ui";
 import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import CloseExpandIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import areIntlLocalesSupported from 'intl-locales-supported';
@@ -24,42 +24,119 @@ if (areIntlLocalesSupported(['nl', 'nl-NL'])) {
     require('intl/locale-data/jsonp/nl-NL');
 }
 
+let states = ['ALL', 'OPEN', 'PAID', 'CLOSED', 'LATE', 'ENDING'];
+let generatedBy = ['ALL', 'AUTO', 'MANUAL']
+
 export class InvoiceListWrapped extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            startDate: new Date(1514822165000),
+            endDate: new Date(1546358165000),
+            stateValue: 1,
+            generatedBy: 1,
+        }
+
+        this.handleStartDateChange = this.handleStartDateChange.bind(this);
+        this.handleEndDateChange = this.handleEndDateChange.bind(this);
+        this.handleInvoiceStateChange = this.handleInvoiceStateChange.bind(this);
+        this.handleInvoiceGenerationChange = this.handleInvoiceGenerationChange.bind(this);
+    }
+
     componentDidMount(){
-        this.props.fetchInvoices();
+        this.props.fetchInvoices(this.state.startDate.valueOf(), this.state.endDate.valueOf());
+    }
+
+    handleStartDateChange(event, date){this.setState({startDate: date})}
+    handleEndDateChange(event, date){this.setState({endDate: date})}
+    handleInvoiceStateChange(event, index, value) {
+        this.setState({stateValue: value});
+    }
+    handleInvoiceGenerationChange(event, index, value) {
+        this.setState({generatedBy: value});
     }
 
     render() {
         return (
-            <div>
-                <Card className="cardListItem">
-                    <CardHeader actAsExpander showExpandableButton closeIcon={<FilterIcon/>} openIcon={<CloseExpandIcon/>} title={'FILTER'} />
+            <div className="listBody">
+                <Card>
+                    <CardHeader actAsExpander showExpandableButton closeIcon={<FilterIcon/>} openIcon={<CloseExpandIcon/>} title={'FILTER OPTIONS'} />
                     <Divider />
                     <CardText expandable>
-                        <h4>CREATE DATE</h4>
-                        <div className="flexWrapCard">
-                            <DatePicker
-                                className="datePicker"
-                                floatingLabelText="Start"
-                                okLabel="OK"
-                                cancelLabel="Annuleren"
-                                locale="nl"
-                            />
-                            <DatePicker
-                                className="datePicker"
-                                floatingLabelText="End"
-                                okLabel="OK"
-                                cancelLabel="Annuleren"
-                                locale="nl"
-                            />
-                            <Divider light />
-                        </div>
+                        <table>
+                            <tr>
+                                <td><h4 className="filterHeader">CREATION DATE</h4></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <DatePicker
+                                        className="datePicker"
+                                        floatingLabelText="Start"
+                                        okLabel="OK"
+                                        cancelLabel="Annuleren"
+                                        locale="nl"
+                                        onChange={this.handleStartDateChange}
+                                        value={this.state.startDate}
+                                    />
+                                </td><td>
+                                    <DatePicker
+                                        className="datePicker"
+                                        floatingLabelText="End"
+                                        okLabel="OK"
+                                        cancelLabel="Annuleren"
+                                        locale="nl"
+                                        onChange={this.handleEndDateChange}
+                                        value={this.state.endDate}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><h4 className="filterHeader">INVOICE STATE</h4></td><td><h4 className="filterHeader">GENERATED BY</h4></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <SelectField
+                                    value={this.state.stateValue}
+                                    onChange={this.handleInvoiceStateChange}>
+                                    <MenuItem value={1} primaryText="ALL" />
+                                    <MenuItem value={2} primaryText="OPEN" />
+                                    <MenuItem value={3} primaryText="PAID" />
+                                    <MenuItem value={4} primaryText="CLOSED" />
+                                    <MenuItem value={5} primaryText="LATE" />
+                                    <MenuItem value={6} primaryText="ENDING" />
+                                </SelectField>
+                                </td>
+                                <td>
+                                    <SelectField
+                                        value={this.state.generatedBy}
+                                        onChange={this.handleInvoiceGenerationChange}>
+                                        <MenuItem value={1} primaryText="ALL" />
+                                        <MenuItem value={2} primaryText="AUTO" />
+                                        <MenuItem value={3} primaryText="MANUAL" />
+                                    </SelectField>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <RaisedButton
+                                    label="Search invoices"
+                                    className="primaryButton"
+                                    primary={true}
+                                    onClick={() => this.props.fetchInvoices(this.state.startDate.valueOf(), this.state.endDate.valueOf())}/>
+                                </td>
+                            </tr>
+                        </table>
                     </CardText>
                 </Card>
 
-                {this.props.isFetching ? <p>LOADING...</p>: <p></p>}
-                {this.props.isFailed ? <p>FAILED!!!!!!</p> : <p></p>}
-                <InvoiceList invoices={this.props.invoices}/>
+                {this.props.isFetching ? <p>Loading...</p>: <p></p>}
+                {this.props.isFailed ? <p>Failed loading invoices!</p> : <p></p>}
+                <InvoiceList
+                    invoices={this.props.invoices}
+                    regenerateInvoice={this.props.regenerateInvoice}
+                    invoiceState={states[this.state.stateValue - 1]}
+                    generatedBy={generatedBy[this.state.generatedBy - 1]}
+                />
             </div>
         )
     }
@@ -69,18 +146,19 @@ InvoiceListWrapped.propTypes = {
     isFetching: PropTypes.bool,
     invoices: PropTypes.array,
     isFailed: PropTypes.bool,
-    fetchInvoices: PropTypes.func
+    fetchInvoices: PropTypes.func,
+    regenerateInvoice: PropTypes.func,
 };
 
 function mapStateToProps(state) {
     return {
         isFetching: state.invoice.isFetching,
         isFailed: state.invoice.isFailed,
-        invoices: state.invoice.invoices,
+        invoices: state.invoice.invoices
     }
 }
 
-
 export default connect(mapStateToProps, {
-    fetchInvoices: fetchInvoices
+    fetchInvoices: fetchInvoices,
+    regenerateInvoice: regenerateInvoice
 })(InvoiceListWrapped)
