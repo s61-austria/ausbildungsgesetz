@@ -17,6 +17,7 @@ export class InvoiceItem extends React.Component {
                     showExpandableButton/>
                 <CardText expandable>
                     <table>
+                        <tbody>
                         <tr>
                             <th align="left" width="100">ID:</th>
                             <td>{this.props.invoice.uuid}</td>
@@ -45,7 +46,7 @@ export class InvoiceItem extends React.Component {
                         <tr height="20px"></tr>
                         <tr>
                             <th align="left">Owner:</th>
-                            <td>{this.props.invoice.owner == null ? 'No owner found!' : `${this.props.invoice.owner.name}`}</td>
+                            <td>{this.props.invoice.profile == null ? 'No owner found!' : `${this.props.invoice.profile.kontoUser.userName}`}</td>
                         </tr>
                         <tr>
                             <th align="left">Vehicle:</th>
@@ -60,6 +61,7 @@ export class InvoiceItem extends React.Component {
                             <th align="left">Total price:</th>
                             <td>{this.props.invoice.totalPrice}</td>
                         </tr>
+                        </tbody>
                     </table>
 
                     <br/>
@@ -86,7 +88,7 @@ InvoiceItem.propTypes = {
         expires: PropTypes.string,
         totalPrice: PropTypes.number,
         meters: PropTypes.number,
-        owner: PropTypes.shape({}),
+        profile: PropTypes.shape({}),
         vehicle: PropTypes.shape({}),
     }).isRequired,
     regenerateInvoice: PropTypes.func.isRequired
