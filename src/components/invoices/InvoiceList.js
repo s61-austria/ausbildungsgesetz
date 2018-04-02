@@ -11,7 +11,21 @@ export class InvoiceList extends React.Component {
     render() {
         return (
             <div>
-                {this.props.invoices.map(invoice => <InvoiceItem invoice={invoice} regenerateInvoice={regenerateInvoice}/>)}
+                {this.props.invoices.filter(invoice => {
+                    if(this.props.invoiceState === "ALL"){
+                        return invoice
+                    } else{
+                        return invoice.state === this.props.invoiceState
+                    }
+
+                }).filter(invoice => {
+                    if(this.props.generatedBy === "ALL"){
+                        return invoice
+                    } else {
+                        return invoice.generationType === this.props.generatedBy
+                    }
+
+                }).map(invoice => <InvoiceItem invoice={invoice} regenerateInvoice={regenerateInvoice}/>)}
             </div>
         )
     }
@@ -19,5 +33,7 @@ export class InvoiceList extends React.Component {
 
 InvoiceList.propTypes = {
     invoices: PropTypes.array.isRequired,
-    regenerateInvoice: PropTypes.func.isRequired
+    regenerateInvoice: PropTypes.func.isRequired,
+    invoiceState: PropTypes.string,
+    generatedBy: PropTypes.string,
 };
