@@ -17,7 +17,7 @@ export function addRate(rate) {
         dispatch({type: RATE_ADDED_PENDING, data: rate});
 
         request
-            .post('http://localhost:8080/government/api' + '/rates')
+            .post('http://localhost:8080/government/api/rates')
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {
@@ -52,7 +52,7 @@ export function updateRate(rate) {
         dispatch({type: RATE_UPDATED_PENDING, data: rate});
 
         request
-            .put('http://localhost:8080/government/api' + '/rates/' + rate.id)
+            .put('http://localhost:8080/government/api/rates/' + rate.id)
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {

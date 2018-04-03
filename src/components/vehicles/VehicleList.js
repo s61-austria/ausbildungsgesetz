@@ -1,12 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {VehicleItem} from './VehicleItem'
-import {vehicle} from "../../reducers/vehicle";
 
 export class VehicleList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (

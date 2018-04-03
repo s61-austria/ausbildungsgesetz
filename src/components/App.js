@@ -1,6 +1,6 @@
 import React from 'react'
 import AppBar from 'material-ui/AppBar';
-import {Drawer, IconButton, MenuItem} from "material-ui";
+import {Divider, Drawer, IconButton, MenuItem} from "material-ui";
 import Home from 'material-ui/svg-icons/action/home';
 import Receipt from 'material-ui/svg-icons/action/receipt';
 import Car from 'material-ui/svg-icons/maps/directions-car';
@@ -31,9 +31,13 @@ export class App extends React.Component {
                     <AppBar title="Menu" iconElementLeft={<IconButton onClick={this.handleToggle}><BackArrow/></IconButton>}/>
 
                     <Link to="/" style={{ textDecoration: 'none' }}><MenuItem leftIcon={<Home />}>Home</MenuItem></Link>
+                    <Divider />
                     <Link to="/invoices" style={{ textDecoration: 'none' }}><MenuItem leftIcon={<Receipt />}>Invoices</MenuItem></Link>
+                    <Divider />
                     <Link to="/vehicles" style={{ textDecoration: 'none' }}><MenuItem leftIcon={<Car />}>Vehicles</MenuItem></Link>
+                    <Divider />
                     <Link to="/rates" style={{ textDecoration: 'none' }}><MenuItem leftIcon={<Toll />}>Rates</MenuItem></Link>
+                    <Divider />
                 </Drawer>
                 {this.props.children}
             </div>
