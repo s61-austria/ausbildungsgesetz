@@ -1,4 +1,5 @@
 import request from 'superagent-es6-promise'
+import {VEHICLES_FETCHED, VEHICLES_FETCHING} from "./vehicle";
 
 export const RATE_UPDATED_PENDING = "RATE_UPDATED_PENDING";
 export const RATE_UPDATED_SUCCESS = "RATE_UPDATED_SUCCESS";
@@ -7,6 +8,9 @@ export const RATE_UPDATED_ERROR = "RATE_UPDATED_ERROR";
 export const RATE_ADDED_PENDING = "RATE_ADDED_PENDING";
 export const RATE_ADDED_SUCCESS = "RATE_ADDED_SUCCESS";
 export const RATE_ADDED_ERROR = "RATE_ADDED_ERROR";
+
+export const RATE_FETCHING = "RATE_FETCHING";
+export const RATE_FETCHED = "RATE_FETCHED";
 
 export function addRate(rate) {
     return (dispatch) => {
@@ -28,6 +32,18 @@ export function addRate(rate) {
                     error
                 })
             });
+    }
+}
+
+export function fetchRates() {
+    return (dispatch) => {
+        dispatch({type: RATE_FETCHING});
+
+        request.get("http://localhost:8080/government/api" + "/rates")
+            .then(result =>
+                dispatch({
+                    type: RATE_FETCHED, data: {rates: result.body}
+                }))
     }
 }
 

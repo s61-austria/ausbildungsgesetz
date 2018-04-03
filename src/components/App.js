@@ -4,6 +4,7 @@ import {Divider, Drawer, IconButton, MenuItem} from "material-ui";
 import Home from 'material-ui/svg-icons/action/home';
 import Receipt from 'material-ui/svg-icons/action/receipt';
 import Car from 'material-ui/svg-icons/maps/directions-car';
+import Toll from 'material-ui/svg-icons/action/toll';
 import BackArrow from 'material-ui/svg-icons/navigation/arrow-back';
 import {Link} from "react-router";
 import '../index.css';
@@ -34,6 +35,8 @@ export class App extends React.Component {
                     <Link to="/invoices" style={{ textDecoration: 'none' }}><MenuItem leftIcon={<Receipt />}>Invoices</MenuItem></Link>
                     <Divider />
                     <Link to="/vehicles" style={{ textDecoration: 'none' }}><MenuItem leftIcon={<Car />}>Vehicles</MenuItem></Link>
+                    <Divider />
+                    <Link to="/rates" style={{ textDecoration: 'none' }}><MenuItem leftIcon={<Toll />}>Rates</MenuItem></Link>
                     <Divider />
                 </Drawer>
                 {this.props.children}
