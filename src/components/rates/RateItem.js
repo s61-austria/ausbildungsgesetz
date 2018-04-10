@@ -4,10 +4,7 @@ import {
     Card,
     CardHeader,
     CardText,
-    Divider,
-    MenuItem,
     RaisedButton,
-    SelectField,
     TextField
 } from 'material-ui'
 
@@ -30,7 +27,7 @@ export class RateItem extends React.Component {
         this.state.kmPrice = this.props.rate.kmPrice;
     }
 
-    handleKmPriceChange(event, index, value){
+    handleKmPriceChange(event, value){
         this.setState({kmPrice: value});
     }
 
@@ -46,31 +43,41 @@ export class RateItem extends React.Component {
                     <table width="100%">
                         <tbody>
                             <tr>
-                                <td width="25%">
+                                <td width="20%">
                                     <TextField
                                         disabled={true}
                                         value={this.props.rate.uuid}
                                         floatingLabelText="Rate ID"
                                     />
                                 </td>
-                                <td width="25%">
+                                <td width="20%">
                                     <TextField
                                         disabled={true}
                                         value={this.props.rate.vehicleType}
                                         floatingLabelText="Vehicle type"
                                     />
                                 </td>
-                                <td width="25%">
+                                <td width="20%">
                                     <TextField
                                         disabled={true}
                                         value={this.props.rate.vignetteType}
                                         floatingLabelText="Vignette type"
                                     />
                                 </td>
-                                <td width="25%">
+                                <td width="20%">
                                     <TextField
-                                        value={this.props.rate.kmPrice}
+                                        defaultValue={this.props.rate.kmPrice}
                                         floatingLabelText="KM Price"
+                                        onChange={this.handleKmPriceChange}
+                                        type="number"
+                                    />
+                                </td>
+                                <td width="20%">
+                                    <RaisedButton
+                                        label="Save Changes"
+                                        onClick={() => this.props.updateRate(this.props.rate, this.state.kmPrice)}
+                                        style={style}
+                                        primary
                                     />
                                 </td>
                             </tr>

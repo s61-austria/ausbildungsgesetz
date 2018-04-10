@@ -12,8 +12,12 @@ export class RateListWrapped extends React.Component {
         return (
             <div className="listBody">
                 {this.props.isFetching ? <p>LOADING</p>: <p></p>}
-                {this.props.children}
-                <RateList rates={this.props.rates} updateRate={this.props.updateRate}/>
+                {this.props.isFailed ? <p>Failed loading rates!</p> : <p></p>}
+                <RateList
+                    rates={this.props.rates}
+                    updateRate={this.props.updateRate}
+                    isUpdated={this.props.isUpdated}
+                    isUpdateFailed={this.props.isUpdateFailed} />
             </div>
         )
     }
@@ -21,6 +25,9 @@ export class RateListWrapped extends React.Component {
 
 RateListWrapped.propTypes = {
     isFetching: PropTypes.bool,
+    isFailed: PropTypes.bool,
+    isUpdated: PropTypes.bool,
+    isUpdateFailed: PropTypes.bool,
     rates: PropTypes.array,
     fetchRates: PropTypes.func,
     updateRate: PropTypes.func,
@@ -29,7 +36,10 @@ RateListWrapped.propTypes = {
 function mapStateToProps(state) {
     return {
         isFetching: state.rate.isFetching,
-        rates: state.rate.rates
+        rates: state.rate.rates,
+        isUpdated: state.rate.isUpdated,
+        isFailed: state.rate.isFailed,
+        isUpdateFailed: state.rate.isUpdateFailed,
     }
 }
 
