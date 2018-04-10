@@ -1,12 +1,14 @@
 import request from 'superagent-es6-promise'
 import {SERVER_URL} from "../components/App";
-import {RATE_UPDATED_SUCCESS} from "./rate";
+import {RATE_UPDATED_ERROR, RATE_UPDATED_SUCCESS} from "./rate";
 
 export const VEHICLES_FETCHING = "VEHICLES_FETCHING";
 export const VEHICLES_FETCHED = "VEHICLES_FETCHED";
+export const VEHICLES_FETCHING_FAILED = "VEHICLES_FETCHING_FAILED";
 
 export const VEHICLE_CHANGING = "VEHICLE_CHANGING";
 export const VEHICLE_CHANGED = "VEHICLE_CHANGED";
+export const VEHICLE_CHANGING_FAILED = "VEHICLE_CHANGING_FAILED";
 
 export function fetchVehicles() {
     return (dispatch) => {
@@ -17,6 +19,12 @@ export function fetchVehicles() {
                 dispatch({
                     type: VEHICLES_FETCHED, data: {vehicles: result.body}
                 }))
+            .catch(error => {
+                dispatch({
+                    type: VEHICLES_FETCHING_FAILED,
+                    error
+                })
+            });
     }
 }
 
@@ -42,5 +50,11 @@ export function changeVehicleOwner(ownerUuid, vehicle) {
                     data: result.body
                 })
             })
+            .catch(error => {
+                dispatch({
+                    type: VEHICLE_CHANGING_FAILED,
+                    error
+                })
+            });
     }
 }
