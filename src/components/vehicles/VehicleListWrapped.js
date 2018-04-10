@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {VehicleList} from "./VehicleList";
 import {connect} from "react-redux";
-import {fetchVehicles} from "../../actions/vehicle";
+import {changeVehicleOwner, fetchVehicles} from "../../actions/vehicle";
 
 export class VehicleListWrapped extends React.Component {
     componentDidMount(){
@@ -13,7 +13,8 @@ export class VehicleListWrapped extends React.Component {
             <div>
                 {this.props.isFetching ? <p>LOADING</p>: <p></p>}
                 {this.props.children}
-                <VehicleList vehicles={this.props.vehicles}/>
+                <VehicleList vehicles={this.props.vehicles}
+                             changeVehicleOwner={this.props.changeVehicleOwner} />
             </div>
         )
     }
@@ -22,7 +23,8 @@ export class VehicleListWrapped extends React.Component {
 VehicleListWrapped.propTypes = {
     isFetching: PropTypes.bool,
     vehicles: PropTypes.array,
-    fetchVehicles: PropTypes.func
+    fetchVehicles: PropTypes.func,
+    changeVehicleOwner: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -33,5 +35,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    fetchVehicles: fetchVehicles
+    fetchVehicles: fetchVehicles,
+    changeVehicleOwner: changeVehicleOwner
 })(VehicleListWrapped)
