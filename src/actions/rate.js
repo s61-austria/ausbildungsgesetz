@@ -1,5 +1,6 @@
 import request from 'superagent-es6-promise'
 import {VEHICLES_FETCHED, VEHICLES_FETCHING} from "./vehicle";
+import {SERVER_URL} from "../components/App";
 
 export const RATE_UPDATED_PENDING = "RATE_UPDATED_PENDING";
 export const RATE_UPDATED_SUCCESS = "RATE_UPDATED_SUCCESS";
@@ -17,7 +18,7 @@ export function addRate(rate) {
         dispatch({type: RATE_ADDED_PENDING, data: rate});
 
         request
-            .post('http://localhost:8080/government/api' + '/rates')
+            .post(`http://localhost:8080/${SERVER_URL}/api/rates`)
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {
@@ -39,7 +40,7 @@ export function fetchRates() {
     return (dispatch) => {
         dispatch({type: RATE_FETCHING});
 
-        request.get("http://localhost:8080/government/api" + "/rates")
+        request.get(`http://localhost:8080/${SERVER_URL}/api/rates`)
             .then(result =>
                 dispatch({
                     type: RATE_FETCHED, data: {rates: result.body}
@@ -52,7 +53,7 @@ export function updateRate(rate) {
         dispatch({type: RATE_UPDATED_PENDING, data: rate});
 
         request
-            .put('http://localhost:8080/government/api' + '/rates/' + rate.id)
+            .put(`http://localhost:8080/${SERVER_URL}/api/rates/${rate.id}`)
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {

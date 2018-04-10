@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "create-react-app": "^1.5.2",
+    "intl": "^1.2.5",
+    "intl-locales-supported": "^1.0.0",
+    "jest-cli": "^22.4.3",
     "material-ui": "^0.20.0",
     "material-ui-icons": "latest",
+    "material-ui-persian-date-picker-utils": "^0.1.2",
+    "npm": "^5.8.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -23,7 +29,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test_watch": "react-scripts test --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject"
   }
 }
