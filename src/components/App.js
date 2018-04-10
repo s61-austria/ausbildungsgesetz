@@ -9,6 +9,8 @@ import BackArrow from 'material-ui/svg-icons/navigation/arrow-back';
 import {Link} from "react-router";
 import '../index.css';
 
+export const SERVER_URL = "kontofahren-1.0-SNAPSHOT";
+
 export class App extends React.Component {
     constructor(props) {
         super(props);
