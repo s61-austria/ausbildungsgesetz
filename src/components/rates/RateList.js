@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {RateItem} from './RateItem'
-import {vehicle} from "../../reducers/vehicle";
+import {rate} from "../../reducers/rate";
 
 export class RateList extends React.Component {
     constructor(props) {
@@ -11,12 +11,17 @@ export class RateList extends React.Component {
     render() {
         return (
             <div>
-                {this.props.rates.map(rate => <RateItem rate={rate}/>)}
+                {this.props.rates.map(rate => <RateItem
+                    key={rate.uuid}
+                    rate={rate}
+                    updateRate={this.props.updateRate}
+                />)}
             </div>
         )
     }
 }
 
 RateList.propTypes = {
-    rates: PropTypes.array.isRequired
+    rates: PropTypes.array.isRequired,
+    updateRate: PropTypes.func.isRequired,
 };
