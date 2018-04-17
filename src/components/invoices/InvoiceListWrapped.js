@@ -2,8 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {InvoiceList} from "./InvoiceList";
 import {connect} from "react-redux";
-import {fetchInvoices, regenerateInvoice, changeInvoiceState} from "../../actions/invoice";
-import {Card, CardHeader, CardText, DatePicker, Divider, MenuItem, RaisedButton, SelectField} from "material-ui";
+import {
+    fetchInvoices,
+    regenerateInvoice,
+    changeInvoiceState,
+    payInvoice,
+    createInvoicePayment
+} from "../../actions/invoice";
+import {
+    Card,
+    CardHeader,
+    CardText,
+    DatePicker,
+    Divider,
+    MenuItem,
+    RaisedButton,
+    SelectField,
+    Snackbar
+} from "material-ui";
 import FilterIcon from 'material-ui/svg-icons/content/filter-list';
 import CloseExpandIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import '../../index.css';
@@ -19,7 +35,7 @@ export class InvoiceListWrapped extends React.Component {
             endDate: new Date(1546358165000),
             stateValue: 1,
             generatedBy: 1,
-        }
+        };
 
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -119,8 +135,19 @@ export class InvoiceListWrapped extends React.Component {
                     invoices={this.props.invoices}
                     regenerateInvoice={this.props.regenerateInvoice}
                     changeInvoiceState={this.props.changeInvoiceState}
+                    payInvoice={this.props.payInvoice}
                     invoiceState={states[this.state.stateValue - 1]}
                     generatedBy={generatedBy[this.state.generatedBy - 1]}
+                />
+                <Snackbar
+                    open={this.props.isChanged}
+                    message="Invoice state changed!"
+                    autoHideDuration={2500}
+                />
+                <Snackbar
+                    open={this.props.isPaymentCreated}
+                    message="Redirecting to external page..."
+                    autoHideDuration={2500}
                 />
             </div>
         )
@@ -130,6 +157,8 @@ export class InvoiceListWrapped extends React.Component {
 InvoiceListWrapped.propTypes = {
     isFetching: PropTypes.bool,
     invoices: PropTypes.array,
+    isChanged: PropTypes.bool,
+    isPaymentCreated: PropTypes.bool,
     isFailed: PropTypes.bool,
     fetchInvoices: PropTypes.func,
     regenerateInvoice: PropTypes.func,
@@ -140,7 +169,9 @@ function mapStateToProps(state) {
     return {
         isFetching: state.invoice.isFetching,
         isFailed: state.invoice.isFailed,
-        invoices: state.invoice.invoices
+        invoices: state.invoice.invoices,
+        isPaymentCreated: state.invoice.isPaymentCreated,
+        isChanged: state.invoice.isChanged,
     }
 }
 
@@ -148,4 +179,5 @@ export default connect(mapStateToProps, {
     fetchInvoices: fetchInvoices,
     regenerateInvoice: regenerateInvoice,
     changeInvoiceState: changeInvoiceState,
+    payInvoice: createInvoicePayment,
 })(InvoiceListWrapped)
