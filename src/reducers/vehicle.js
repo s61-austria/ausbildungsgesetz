@@ -1,4 +1,4 @@
-import {VEHICLES_FETCHED, VEHICLES_FETCHING} from '../actions/vehicle'
+import {VEHICLES_FETCHED, VEHICLES_FETCHING, VEHICLE_CHANGED} from '../actions/vehicle'
 
 export function vehicle(state = {
     isFetching: false,
@@ -13,6 +13,11 @@ export function vehicle(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 vehicles: action.data.vehicles
+            });
+        case VEHICLE_CHANGED:
+            return Object.assign({}, state, {
+                isFetching: false,
+                vehicles: state.vehicles.map(v => v.uuid === action.data.uuid ? action.data : v)
             });
         default:
             return state
