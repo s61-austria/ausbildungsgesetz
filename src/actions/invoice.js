@@ -53,7 +53,7 @@ export function createInvoicePayment(invoice) {
     return dispatch => {
         dispatch({type: INVOICE_ADDING_PAYMENT, invoice});
 
-        request.put(`http://localhost:8080/${SERVER_URL}/api/invoices/payment/create/${invoice.uuid}`)
+        request.put(`http://localhost:8080/${SERVER_URL}/api/payments/create/${invoice.uuid}`)
             .then(result =>
                 dispatch({
                     type: INVOICE_PAYMENT_ADDED, data: result.body
