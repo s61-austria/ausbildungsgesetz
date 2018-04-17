@@ -1,13 +1,16 @@
 import {
-    INVOICES_FETCH_FAILED,
+    INVOICE_FETCH_FOR_VEHICLE_FAILED,
+    INVOICE_FETCHED_FOR_VEHICLE,
+    INVOICE_FETCHING_FOR_VEHICLE,
+    INVOICE_GENERATE_FAILED,
     INVOICE_GENERATING,
     INVOICE_REGENERATED,
-    INVOICES_FETCHED,
-    INVOICES_FETCHING,
-    INVOICE_STATE_CHANGING,
-    INVOICE_STATE_CHANGED,
     INVOICE_STATE_CHANGE_FAILED,
-    INVOICE_GENERATE_FAILED
+    INVOICE_STATE_CHANGED,
+    INVOICE_STATE_CHANGING,
+    INVOICES_FETCH_FAILED,
+    INVOICES_FETCHED,
+    INVOICES_FETCHING
 } from "../actions/invoice";
 
 export function invoice(state = {
@@ -17,18 +20,18 @@ export function invoice(state = {
 }, action) {
     switch (action.type) {
         case INVOICES_FETCHING:
-            return Object.assign({}, state,{
+            return Object.assign({}, state, {
                 isFetching: true,
                 isFailed: false,
             });
         case INVOICES_FETCHED:
-            return Object.assign({}, state,{
+            return Object.assign({}, state, {
                 isFetching: false,
                 isFailed: false,
                 invoices: action.data.invoices,
             });
         case INVOICE_GENERATING:
-            return Object.assign({}, state,{
+            return Object.assign({}, state, {
                 isFetching: true,
                 isFailed: false,
             });
@@ -39,23 +42,23 @@ export function invoice(state = {
                 invoices: state.invoices.map(inv => inv.uuid === action.data.uuid ? action.data : inv)
             });
         case INVOICE_STATE_CHANGING:
-            return Object.assign({}, state,{
+            return Object.assign({}, state, {
                 isFetching: true,
                 isFailed: false
             });
         case INVOICE_STATE_CHANGED:
-            return Object.assign({}, state,{
+            return Object.assign({}, state, {
                 isFetching: false,
                 isFailed: false,
                 invoices: state.invoices.map(inv => inv.uuid === action.data.uuid ? action.data : inv)
             });
         case INVOICE_STATE_CHANGE_FAILED:
-            return Object.assign({}, state,{
+            return Object.assign({}, state, {
                 isFetching: false,
                 isFailed: true,
             });
         case INVOICE_GENERATE_FAILED:
-            return Object.assign({}, state,{
+            return Object.assign({}, state, {
                 isFetching: false,
                 isFailed: false,
             })

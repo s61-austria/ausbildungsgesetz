@@ -1,6 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Card, CardHeader, CardText, RaisedButton, TextField} from 'material-ui'
+import {InvoiceList} from "../invoices/InvoiceList";
+import {InvoiceListWrapped} from "../invoices/InvoiceListWrapped";
+import {changeInvoiceState, fetchInvoices, fetchInvoicesForVehicle, regenerateInvoice} from "../../actions/invoice";
+import {connect} from "react-redux";
+import {changeVehicleOwner, fetchVehicles} from "../../actions/vehicle";
+import {VehicleListWrapped} from "./VehicleListWrapped";
 
 const textFieldStyle = {
     marginLeft: 8,
@@ -13,12 +19,24 @@ export class VehicleItem extends React.Component {
 
         this.ownerUuid = undefined;
 
+        this.props.vehicle.invoices = [];
+        fetchInvoicesForVehicle(this.props.vehicle.uuid);
+
         this.handleOwnerUuidTextFieldChanged = this.handleOwnerUuidTextFieldChanged.bind(this);
+        this.handleOnInvoiceListExpanded = this.handleOnInvoiceListExpanded.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.vehicle.invoices = [];
     }
 
     handleOwnerUuidTextFieldChanged(event, value){
         this.ownerUuid = value;
         console.log(value);
+    }
+
+    handleOnInvoiceListExpanded(value) {
+        fetchInvoicesForVehicle(this.props.vehicle.uuid)
     }
 
     render() {
@@ -30,7 +48,7 @@ export class VehicleItem extends React.Component {
                     showExpandableButton={true}
                 />
                 <CardText expandable={true} >
-                    <p>Id: {this.props.vehicle.id}</p>
+                    <p>Id: {this.props.vehicle.uuid}</p>
                     <p>Hardware serial: {this.props.vehicle.hardwareSerialNumber}</p>
                     <p>Vehicle type: {this.props.vehicle.vehicleType}</p>
                     {this.props.vehicle.owner == null ? <p>Owner: undefined</p> :
@@ -51,6 +69,21 @@ export class VehicleItem extends React.Component {
                         style={textFieldStyle}
                         onChange={this.handleOwnerUuidTextFieldChanged}
                     />
+                    {/*todo make this view admin only*/}
+                    <Card id="AdminCard" onExpandChange={this.handleOnInvoiceListExpanded}>
+                        <CardHeader
+                            title="Invoices"
+                            actAsExpander={true}
+                            showExpandableButton={true}
+                        />
+                        <CardText expandable={true} >
+                            <InvoiceList
+                                invoices={this.props.vehicle.invoices}
+                                regenerateInvoice={this.props.regenerateInvoice}
+                                changeInvoiceState={this.props.changeInvoiceState}
+                            />
+                        </CardText>
+                    </Card>
                 </CardText>
             </Card>
         )
@@ -59,8 +92,9 @@ export class VehicleItem extends React.Component {
 
 VehicleItem.propTypes = {
     vehicle: PropTypes.shape({
+        invoices: PropTypes.array,
         key: PropTypes.string,
-        id: PropTypes.number,
+        uuid: PropTypes.number,
         hardwareSerialNumber: PropTypes.string,
         licensePlate: PropTypes.string,
         vehicleType: PropTypes.string,
@@ -68,5 +102,7 @@ VehicleItem.propTypes = {
         owner: PropTypes.shape({}),
         currentLocation: PropTypes.shape({})
     }).isRequired,
-    changeVehicleOwner: PropTypes.func.isRequired
+    changeVehicleOwner: PropTypes.func.isRequired,
+    regenerateInvoice: PropTypes.func.isRequired,
+    changeInvoiceState: PropTypes.func.isRequired
 };

@@ -13,6 +13,10 @@ export const INVOICE_GENERATING = "INVOICE_GENERATING";
 export const INVOICE_REGENERATED = "INVOICE_REGENERATED";
 export const INVOICE_GENERATE_FAILED = "INVOICE_GENERATE_FAILED";
 
+export const INVOICE_FETCHING_FOR_VEHICLE = "INVOICE_FETCHING_FOR_VEHICLE";
+export const INVOICE_FETCHED_FOR_VEHICLE = "INVOICE_FETCHED_FOR_VEHICLE";
+export const INVOICE_FETCH_FOR_VEHICLE_FAILED = "INVOICE_FETCH_FOR_VEHICLE_FAILED";
+
 export function fetchInvoices(startDate, endDate) {
     return (dispatch) => {
         dispatch({type: INVOICES_FETCHING});
@@ -25,6 +29,23 @@ export function fetchInvoices(startDate, endDate) {
             .catch(error =>
                 dispatch({
                     type: INVOICES_FETCH_FAILED, error
+                }))
+    }
+}
+
+export function fetchInvoicesForVehicle(vehicleId) {
+    console.log(vehicleId);
+    return (dispatch) => {
+        dispatch({type: INVOICE_FETCHING_FOR_VEHICLE});
+
+        request.get(`http://localhost:8080/${SERVER_URL}/api/invoices?vehicleId=${vehicleId}`)
+            .then(result =>
+                dispatch({
+                    type: INVOICE_FETCHED_FOR_VEHICLE, data: {invoices: result.body}
+                }))
+            .catch(error =>
+                dispatch({
+                    type: INVOICE_FETCH_FOR_VEHICLE_FAILED, error
                 }))
     }
 }

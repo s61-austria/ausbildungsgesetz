@@ -53,7 +53,7 @@ export function updateRate(rate) {
         dispatch({type: RATE_UPDATED_PENDING, data: rate});
 
         request
-            .put(`http://localhost:8080/${SERVER_URL}/api/rates/${rate.id}`)
+            .put(`http://localhost:8080/${SERVER_URL}/api/rates/${rate.uuid}`)
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {

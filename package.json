@@ -7,6 +7,7 @@
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
     "jest-cli": "^22.4.3",
+    "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.0",
     "material-ui-icons": "latest",
     "material-ui-persian-date-picker-utils": "^0.1.2",
