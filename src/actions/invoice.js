@@ -36,16 +36,16 @@ export function fetchInvoices(startDate, endDate) {
 export function fetchInvoicesForVehicle(vehicleId) {
     console.log(vehicleId);
     return (dispatch) => {
-        dispatch({type: INVOICE_FETCHING_FOR_VEHICLE});
+        dispatch({type: INVOICES_FETCHING, vehicleId: vehicleId});
 
         request.get(`http://localhost:8080/${SERVER_URL}/api/invoices?vehicleId=${vehicleId}`)
             .then(result =>
                 dispatch({
-                    type: INVOICE_FETCHED_FOR_VEHICLE, data: {invoices: result.body}
+                    type: INVOICE_FETCHED_FOR_VEHICLE, data: {invoices: result.body}, vehicleId: vehicleId
                 }))
             .catch(error =>
                 dispatch({
-                    type: INVOICE_FETCH_FOR_VEHICLE_FAILED, error
+                    type: INVOICES_FETCH_FAILED, error
                 }))
     }
 }

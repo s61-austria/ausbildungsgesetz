@@ -58,7 +58,9 @@ export default class InvoiceListFilter extends React.Component {
     }
 
     componentDidMount(){
-        this.filterInvoices()
+        this.setState({
+            invoices: this.props.invoices
+        })
     }
 
     render() {

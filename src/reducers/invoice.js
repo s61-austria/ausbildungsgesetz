@@ -1,7 +1,5 @@
 import {
-    INVOICE_FETCH_FOR_VEHICLE_FAILED,
     INVOICE_FETCHED_FOR_VEHICLE,
-    INVOICE_FETCHING_FOR_VEHICLE,
     INVOICE_GENERATE_FAILED,
     INVOICE_GENERATING,
     INVOICE_REGENERATED,
@@ -16,13 +14,21 @@ import {
 export function invoice(state = {
     isFetching: false,
     isFailed: false,
-    invoices: []
+    invoices: [],
+    invoiceMap: {}
 }, action) {
     switch (action.type) {
         case INVOICES_FETCHING:
             return Object.assign({}, state, {
                 isFetching: true,
                 isFailed: false,
+            });
+        case INVOICE_FETCHED_FOR_VEHICLE:
+            let map = state.invoiceMap;
+            map[action.data.invoices[0].vehicle.uuid] = action.data.invoices;
+            return Object.assign({}, state,{
+                isFetching: false,
+                invoiceMap: map
             });
         case INVOICES_FETCHED:
             return Object.assign({}, state, {

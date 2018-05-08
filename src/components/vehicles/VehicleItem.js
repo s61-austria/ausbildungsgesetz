@@ -1,12 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Card, CardHeader, CardText, RaisedButton, TextField} from 'material-ui'
-import {InvoiceList} from "../invoices/InvoiceList";
 import {InvoiceListFilter} from "../invoices/InvoiceListFilter";
-import {changeInvoiceState, fetchInvoices, fetchInvoicesForVehicle, regenerateInvoice} from "../../actions/invoice";
-import {connect} from "react-redux";
-import {changeVehicleOwner, fetchVehicles} from "../../actions/vehicle";
-import {VehicleListWrapped} from "./VehicleListWrapped";
 import InvoiceListWrapped from "../invoices/InvoiceListWrapped";
 
 const textFieldStyle = {
@@ -21,10 +16,7 @@ export class VehicleItem extends React.Component {
         this.ownerUuid = undefined;
 
         this.props.vehicle.invoices = [];
-        fetchInvoicesForVehicle(this.props.vehicle.uuid);
-
         this.handleOwnerUuidTextFieldChanged = this.handleOwnerUuidTextFieldChanged.bind(this);
-        this.handleOnInvoiceListExpanded = this.handleOnInvoiceListExpanded.bind(this);
     }
 
     componentDidMount(){
@@ -36,11 +28,10 @@ export class VehicleItem extends React.Component {
         console.log(value);
     }
 
-    handleOnInvoiceListExpanded(value) {
-        fetchInvoicesForVehicle(this.props.vehicle.uuid)
-    }
-
     render() {
+
+        console.log(this.props.vehicle.uuid);
+
         return (
             <Card>
                 <CardHeader
@@ -79,7 +70,8 @@ export class VehicleItem extends React.Component {
                         />
                         <CardText expandable={true} >
                             <InvoiceListWrapped
-                                vehicleId={this.props.vehicle.uuid}
+                                id={this.props.vehicle.uuid}
+                                type="vehicle"
                             />
                         </CardText>
                     </Card>
@@ -92,8 +84,7 @@ export class VehicleItem extends React.Component {
 VehicleItem.propTypes = {
     vehicle: PropTypes.shape({
         invoices: PropTypes.array,
-        key: PropTypes.string,
-        uuid: PropTypes.number,
+        uuid: PropTypes.string,
         hardwareSerialNumber: PropTypes.string,
         licensePlate: PropTypes.string,
         vehicleType: PropTypes.string,
