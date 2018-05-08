@@ -21,7 +21,7 @@ export function fetchInvoices(startDate, endDate) {
     return (dispatch) => {
         dispatch({type: INVOICES_FETCHING});
 
-        request.get(`http://localhost:8080/${SERVER_URL}/api/invoices?startDate=${startDate}&endDate=${endDate}`)
+        request.get(`http://localhost:8080/${SERVER_URL}/api/invoices`)
             .then(result =>
                 dispatch({
                     type: INVOICES_FETCHED, data: {invoices: result.body}

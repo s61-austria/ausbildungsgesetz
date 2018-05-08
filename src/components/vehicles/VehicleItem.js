@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Card, CardHeader, CardText, RaisedButton, TextField} from 'material-ui'
 import {InvoiceList} from "../invoices/InvoiceList";
-import {InvoiceListWrapped} from "../invoices/InvoiceListWrapped";
+import {InvoiceListFilter} from "../invoices/InvoiceListFilter";
 import {changeInvoiceState, fetchInvoices, fetchInvoicesForVehicle, regenerateInvoice} from "../../actions/invoice";
 import {connect} from "react-redux";
 import {changeVehicleOwner, fetchVehicles} from "../../actions/vehicle";
