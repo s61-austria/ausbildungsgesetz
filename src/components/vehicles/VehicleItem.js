@@ -7,6 +7,7 @@ import {changeInvoiceState, fetchInvoices, fetchInvoicesForVehicle, regenerateIn
 import {connect} from "react-redux";
 import {changeVehicleOwner, fetchVehicles} from "../../actions/vehicle";
 import {VehicleListWrapped} from "./VehicleListWrapped";
+import InvoiceListWrapped from "../invoices/InvoiceListWrapped";
 
 const textFieldStyle = {
     marginLeft: 8,
@@ -77,10 +78,8 @@ export class VehicleItem extends React.Component {
                             showExpandableButton={true}
                         />
                         <CardText expandable={true} >
-                            <InvoiceList
-                                invoices={this.props.vehicle.invoices}
-                                regenerateInvoice={this.props.regenerateInvoice}
-                                changeInvoiceState={this.props.changeInvoiceState}
+                            <InvoiceListWrapped
+                                vehicleId={this.props.vehicle.uuid}
                             />
                         </CardText>
                     </Card>

@@ -3,11 +3,15 @@ import PropTypes from 'prop-types'
 import {connect} from "react-redux";
 import {CircularProgress} from "material-ui";
 import InvoiceListFilter from "./InvoiceListFilter";
-import {fetchInvoices} from "../../actions/invoice";
+import {fetchInvoices, fetchInvoicesForVehicle} from "../../actions/invoice";
 
 class InvoiceListWrapped extends React.Component{
     componentDidMount(){
-        this.props.fetch()
+        if(this.props.vehicleId === undefined){
+            this.props.fetch()
+        }else {
+            this.props.fetchInvoicesForVehicle(this.props.vehicleId)
+        }
     }
 
     render(){
@@ -22,18 +26,21 @@ class InvoiceListWrapped extends React.Component{
 InvoiceListWrapped.propTypes = {
     isFetching: PropTypes.bool,
     invoices: PropTypes.array,
-    id: PropTypes.string,
-    fetch: PropTypes.func
+    vehicleId: PropTypes.string,
+    fetch: PropTypes.func,
+    fetchInvoicesForVehicle: PropTypes.func
+
 };
 
 function mapStateToProps(state, ownProps) {
     return {
         isFetching: state.invoice.isFetching,
         invoices: state.invoice.invoices,
-        id: ownProps.id
+        vehicleId: ownProps.vehicleId
     }
 }
 
 export default connect(mapStateToProps,{
-    fetch: fetchInvoices
+    fetch: fetchInvoices,
+    fetchInvoicesForVehicle: fetchInvoicesForVehicle
 })(InvoiceListWrapped)
