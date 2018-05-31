@@ -6,6 +6,7 @@ import AddRate from "./components/rates/AddRate";
 import UpdateRate from "./components/rates/UpdateRate";
 import InvoiceListWrapped from "./components/invoices/InvoiceListWrapped";
 import RateListWrapped from "./components/rates/RateListWrapped";
+import {Login} from "./components/auth/Login";
 
 export default (
     <Route path="/" component={App}>
@@ -14,5 +15,6 @@ export default (
         <Route path="/rates" component={RateListWrapped}/>
         <Route path="/rates/add" component={AddRate} />
         <Route path="/rates/update" component={UpdateRate} />
+        <Route path="/login" component={Login} />
     </Route>
 )
