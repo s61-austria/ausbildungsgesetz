@@ -44,4 +44,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, {login: login()}) (Login)
+export default connect(mapStateToProps, {login: login}) (Login)
