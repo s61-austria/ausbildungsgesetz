@@ -1,5 +1,6 @@
 import request from 'superagent-es6-promise'
 import {SERVER_URL} from "../components/App";
+import config from "../config";
 
 export const RATE_FETCHING = "RATE_FETCHING";
 export const RATE_FETCH_FAILED = "RATE_FETCH_FAILED";
@@ -17,7 +18,7 @@ export function fetchRates() {
     return (dispatch) => {
         dispatch({type: RATE_FETCHING});
 
-        request.get(`http://localhost:8080/${SERVER_URL}/api/rates`)
+        request.get(config.API_URL + `rates`)
             .then(result =>
                 dispatch({
                     type: RATE_FETCHED, data: {rates: result.body}
@@ -34,7 +35,7 @@ export function addRate(rate) {
         dispatch({type: RATE_ADDED_PENDING, data: rate});
 
         request
-            .post(`http://localhost:8080/${SERVER_URL}/api/rates`)
+            .post(config.API_URL + `/rates`)
             .set('Content-Type', 'application/json')
             .send(rate)
             .then(result => {
@@ -57,7 +58,7 @@ export function updateRate(rate, price) {
         dispatch({type: RATE_UPDATED_PENDING, data: rate});
 
         request
-            .post(`http://localhost:8080/${SERVER_URL}/api/rates/update/price/${rate.uuid}?price=${price}`)
+            .post(config.API_URL + `/rates/update/price/${rate.uuid}?price=${price}`)
             .then(result => {
                 dispatch({
                     type: RATE_UPDATED_SUCCESS,

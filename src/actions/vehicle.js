@@ -1,6 +1,7 @@
 import request from 'superagent-es6-promise'
 import {SERVER_URL} from "../components/App";
 import {RATE_UPDATED_ERROR, RATE_UPDATED_SUCCESS} from "./rate";
+import config from "../config";
 
 export const VEHICLES_FETCHING = "VEHICLES_FETCHING";
 export const VEHICLES_FETCHED = "VEHICLES_FETCHED";
@@ -14,7 +15,7 @@ export function fetchVehicles() {
     return (dispatch) => {
         dispatch({type: VEHICLES_FETCHING});
 
-        request.get(`http://localhost:8080/${SERVER_URL}/api/vehicles`)
+        request.get(config.API_URL + `/vehicles`)
             .then(result =>
                 dispatch({
                     type: VEHICLES_FETCHED, data: {vehicles: result.body}
@@ -41,7 +42,7 @@ export function changeVehicleOwner(ownerUuid, vehicle) {
         );
 
         request
-            .put(`http://localhost:8080/${SERVER_URL}/api/vehicles`)
+            .put(config.API_URL + `/vehicles`)
             .set('Content-Type', 'application/json')
             .send(val)
             .then(result => {
