@@ -21,7 +21,14 @@ export class InvoiceList extends React.Component {
                         return invoice.generationType === this.props.generatedBy
                     }
 
-                }).map(invoice => <InvoiceItem key={invoice.uuid} invoice={invoice} regenerateInvoice={this.props.regenerateInvoice} changeInvoiceState={this.props.changeInvoiceState}/>)}
+                }).map(invoice =>
+                    <InvoiceItem
+                        key={invoice.uuid}
+                        invoice={invoice}
+                        regenerateInvoice={this.props.regenerateInvoice}
+                        changeInvoiceState={this.props.changeInvoiceState}
+                        payInvoice={this.props.payInvoice}
+                    />)}
             </div>
         )
     }
@@ -31,6 +38,7 @@ InvoiceList.propTypes = {
     invoices: PropTypes.array.isRequired,
     regenerateInvoice: PropTypes.func.isRequired,
     changeInvoiceState: PropTypes.func.isRequired,
+    payInvoice: PropTypes.func.isRequired,
     invoiceState: PropTypes.string,
     generatedBy: PropTypes.string,
 };

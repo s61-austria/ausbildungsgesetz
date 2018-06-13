@@ -2,12 +2,18 @@
   "name": "ausbildungsgesetz",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://s61-austria.github.io/ausbildungsgesetz/",
   "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "create-react-app": "^1.5.2",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
+    "jest-cli": "^22.4.3",
     "material-ui": "^0.20.0",
     "material-ui-icons": "latest",
     "material-ui-persian-date-picker-utils": "^0.1.2",
+    "mollie-api-node": "^1.3.5",
     "npm": "^5.8.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
@@ -25,9 +31,26 @@
     "superagent-es6-promise": "^1.0.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test_watch": "react-scripts test --env=jsdom",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
+  },
+  "devDependencies": {
+    "babel-jest": "^23.0.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "expect": "^23.1.0",
+    "fetch-mock": "^6.4.4",
+    "gh-pages": "^1.1.0",
+    "jest": "^23.1.0",
+    "react-test-renderer": "^16.4.0",
+    "redux-mock-store": "^1.5.1",
+    "cypress": "^3.0.1"
   }
 }

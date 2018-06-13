@@ -12,7 +12,7 @@ import {
     TextField
 } from 'material-ui'
 
-let months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+let months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 let states = ['OPEN', 'PAID', 'CLOSED', 'LATE', 'ENDING'];
 
 const style = {
@@ -35,7 +35,6 @@ export class InvoiceItem extends React.Component {
 
     handleInvoiceStateChange(event, index, value){
         this.setState({stateValue: value});
-
     }
 
     render() {
@@ -52,14 +51,12 @@ export class InvoiceItem extends React.Component {
                     showExpandableButton/>
                 <CardText expandable>
                     <table width="100%">
-                        <thead>
-                            <tr>
-                                <td width="25%" align="left"><h3>GENERAL INFORMATION</h3></td>
-                                <td width="25%"></td>
-                                <td width="25%" align="left"><h3>EXTRA</h3></td>
-                                <td width="25%"></td>
-                            </tr>
-                        </thead>
+                        <tr>
+                            <th width="25%" align="left"><h3>GENERAL INFORMATION</h3></th>
+                            <th width="25%"></th>
+                            <th width="25%" align="left"><h3>EXTRA</h3></th>
+                            <th width="25%"></th>
+                        </tr>
                         <tbody>
                         <tr>
                             <td>
@@ -130,8 +127,10 @@ export class InvoiceItem extends React.Component {
                         <tr>
                             <th align="left" valign="bottom"><h4>EXPIRES ON:</h4></th>
                             <td><DatePicker disabled value={expires}/></td>
-                            <td width="25%" align="center"><h4>TOTAL PRICE</h4></td>
-                            <td width="25%"><h4>{this.props.invoice.totalPrice}</h4></td>
+                            <td></td>
+                            <td align="right" valign="bottom">
+                                <h4>TOTAL PRICE: {this.props.invoice.totalPrice}</h4>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -139,20 +138,35 @@ export class InvoiceItem extends React.Component {
                     <br/>
 
                     <Divider />
+                    <table width="100%">
+                        <tbody>
+                        <td width="50%" align="left">
+                            <RaisedButton
+                                label="Save Changes"
+                                onClick={() => this.props.changeInvoiceState(this.props.invoice, states[this.state.stateValue - 1])}
+                                style={style}
+                                primary
+                            />
 
-                    <RaisedButton
-                        label="Save Changes"
-                        onClick={() => this.props.changeInvoiceState(this.props.invoice, states[this.state.stateValue - 1])}
-                        style={style}
-                        primary
-                    />
-
-                    <RaisedButton
-                        onClick={() => this.props.regenerateInvoice(this.props.invoice)}
-                        label="Regenerate"
-                        style={style}
-                        primary
-                    />
+                            <RaisedButton
+                                disabled={this.props.invoice.state === 'PAID'}
+                                onClick={() => this.props.regenerateInvoice(this.props.invoice)}
+                                label="Regenerate"
+                                style={style}
+                                primary
+                            />
+                        </td>
+                        <td width="50%" align="right">
+                            <RaisedButton
+                                disabled={this.props.invoice.state === 'PAID'}
+                                onClick={() => this.props.payInvoice(this.props.invoice)}
+                                label="Pay invoice"
+                                style={style}
+                                primary
+                            />
+                        </td>
+                        </tbody>
+                    </table>
                 </CardText>
             </Card>
         )
@@ -164,14 +178,18 @@ InvoiceItem.propTypes = {
         uuid: PropTypes.string,
         state: PropTypes.string,
         generationType: PropTypes.string,
-        createdOn: PropTypes.string,
-        createdFor: PropTypes.string,
-        expires: PropTypes.string,
+        createdOn: PropTypes.number,
+        createdFor: PropTypes.number,
+        expires: PropTypes.number,
         totalPrice: PropTypes.number,
         meters: PropTypes.number,
+        payLink: PropTypes.string,
+        payTime: PropTypes.number,
+        paymentId: PropTypes.string,
         profile: PropTypes.shape({}),
         vehicle: PropTypes.shape({}),
     }).isRequired,
     regenerateInvoice: PropTypes.func.isRequired,
     changeInvoiceState: PropTypes.func.isRequired,
+    payInvoice: PropTypes.func.isRequired,
 };
