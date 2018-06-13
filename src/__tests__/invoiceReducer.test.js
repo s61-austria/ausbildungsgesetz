@@ -1,20 +1,5 @@
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
 import {invoice} from '../reducers/invoice'
 import * as types from '../actions/invoice'
-import expect from 'expect'
-import {INVOICES_FETCHED} from "../actions/invoice";
-import {INVOICES_FETCH_FAILED} from "../actions/invoice";
-import {INVOICE_GENERATING} from "../actions/invoice";
-import {INVOICE_REGENERATED} from "../actions/invoice";
-import {INVOICE_STATE_CHANGE_FAILED} from "../actions/invoice";
-import {INVOICE_GENERATE_FAILED} from "../actions/invoice";
-import {INVOICE_ADDING_PAYMENT} from "../actions/invoice";
-import {INVOICE_PAYMENT_ADDED} from "../actions/invoice";
-import {INVOICE_ADDING_PAYMENT_FAILED} from "../actions/invoice"; // You can use any testing library
-
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
 
 const invoices = [
     {uuid: "1234", type: "LKW"},
