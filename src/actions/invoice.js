@@ -1,6 +1,7 @@
 import request from 'superagent-es6-promise'
 import {SERVER_URL} from "../components/App";
 import * as Mollie from "mollie-api-node";
+import config from '../config'
 
 export const INVOICES_FETCHING = "INVOICES_FETCHING";
 export const INVOICES_FETCH_FAILED = "INVOICES_FETCH_FAILED";
@@ -22,9 +23,9 @@ export function fetchInvoices(startDate, endDate) {
     return (dispatch) => {
         dispatch({type: INVOICES_FETCHING});
 
-        return request.get(`http://localhost:8080/${SERVER_URL}/api/invoices?startDate=${startDate}&endDate=${endDate}`)
-            .then(res =>{
-                console.log(res)
+
+        request.get(config.API_URL + `/invoices?startDate=${startDate}&endDate=${endDate}`)
+            .then(result =>
                 dispatch({
                     type: INVOICES_FETCHED, data: {invoices: res.body}
                 })})
@@ -39,7 +40,7 @@ export function changeInvoiceState(invoice, state) {
     return(dispatch) => {
         dispatch({type: INVOICE_STATE_CHANGING, invoice, state});
 
-        request.post(`http://localhost:8080/${SERVER_URL}/api/invoices/update/state/${invoice.uuid}?state=${state}`)
+        request.post(config.API_URL + `/invoices/update/state/${invoice.uuid}?state=${state}`)
             .then(result =>
                 dispatch({
                     type: INVOICE_STATE_CHANGED, data: result.body
@@ -54,7 +55,7 @@ export function createInvoicePayment(invoice, callback) {
     return dispatch => {
         dispatch({type: INVOICE_ADDING_PAYMENT, invoice});
 
-        request.put(`http://localhost:8080/${SERVER_URL}/api/payments/create/${invoice.uuid}`)
+        request.put(config.API_URL + `/payments/create/${invoice.uuid}`)
             .then(result =>
                 dispatch({
                     type: INVOICE_PAYMENT_ADDED, data: result.body
@@ -69,7 +70,7 @@ export function regenerateInvoice(invoice) {
     return (dispatch) => {
         dispatch({type: INVOICE_GENERATING, invoice});
 
-        request.put(`http://localhost:8080/${SERVER_URL}/api/invoices/regenerate/${invoice.uuid}`)
+        request.put(config.API_URL + `/invoices/regenerate/${invoice.uuid}`)
             .then(result =>
                 dispatch({
                     type: INVOICE_REGENERATED, data: result.body
