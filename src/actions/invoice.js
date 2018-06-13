@@ -28,7 +28,7 @@ export function fetchInvoices(startDate, endDate) {
             .then(result =>
                 dispatch({
                     type: INVOICES_FETCHED, data: {invoices: res.body}
-                })})
+                }))
             .catch(error =>
                 dispatch({
                     type: INVOICES_FETCH_FAILED, error
