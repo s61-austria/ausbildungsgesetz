@@ -23,11 +23,12 @@ export function fetchInvoices(startDate, endDate) {
     return (dispatch) => {
         dispatch({type: INVOICES_FETCHING});
 
+
         request.get(config.API_URL + `/invoices?startDate=${startDate}&endDate=${endDate}`)
             .then(result =>
                 dispatch({
-                    type: INVOICES_FETCHED, data: {invoices: result.body}
-                }))
+                    type: INVOICES_FETCHED, data: {invoices: res.body}
+                })})
             .catch(error =>
                 dispatch({
                     type: INVOICES_FETCH_FAILED, error
@@ -50,7 +51,7 @@ export function changeInvoiceState(invoice, state) {
     }
 }
 
-export function createInvoicePayment(invoice) {
+export function createInvoicePayment(invoice, callback) {
     return dispatch => {
         dispatch({type: INVOICE_ADDING_PAYMENT, invoice});
 
