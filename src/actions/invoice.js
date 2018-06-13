@@ -22,11 +22,12 @@ export function fetchInvoices(startDate, endDate) {
     return (dispatch) => {
         dispatch({type: INVOICES_FETCHING});
 
-        request.get(`http://localhost:8080/${SERVER_URL}/api/invoices?startDate=${startDate}&endDate=${endDate}`)
-            .then(result =>
+        return request.get(`http://localhost:8080/${SERVER_URL}/api/invoices?startDate=${startDate}&endDate=${endDate}`)
+            .then(res =>{
+                console.log(res)
                 dispatch({
-                    type: INVOICES_FETCHED, data: {invoices: result.body}
-                }))
+                    type: INVOICES_FETCHED, data: {invoices: res.body}
+                })})
             .catch(error =>
                 dispatch({
                     type: INVOICES_FETCH_FAILED, error
@@ -49,7 +50,7 @@ export function changeInvoiceState(invoice, state) {
     }
 }
 
-export function createInvoicePayment(invoice) {
+export function createInvoicePayment(invoice, callback) {
     return dispatch => {
         dispatch({type: INVOICE_ADDING_PAYMENT, invoice});
 
