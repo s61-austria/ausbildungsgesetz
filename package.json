@@ -7,6 +7,8 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "create-react-app": "^1.5.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
     "jest-cli": "^22.4.3",
