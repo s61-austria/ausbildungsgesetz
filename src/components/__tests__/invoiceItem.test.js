@@ -69,3 +69,10 @@ it('checks if header contains invoice uuid and state', () => {
     expect(wrapped.find(Card).at(0).text()).toContain(invoice.uuid);
     expect(wrapped.find(Card).at(0).text()).toContain(invoice.state);
 });
+
+it('checks if textfields are rendered', () => {
+    wrapped.find(InvoiceItem).find(Card).find(CardHeader).simulate('click');
+    wrapped.update();
+
+    expect(wrapped.html()).toContain('Jandie Hendriks');
+});
